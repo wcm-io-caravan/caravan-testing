@@ -39,7 +39,9 @@ import com.google.common.base.Charsets;
 
 /**
  * The abstract starting class for OSGI mocking tests. Registers Cache adapter and resilient HTTP client.
+ * @deprecated Use {@link JsonPipelineContext} JUnit rule instead.
  */
+@Deprecated
 public abstract class AbstractOsgiTest {
 
   /**
