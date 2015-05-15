@@ -27,12 +27,14 @@ import io.wcm.caravan.io.http.response.CaravanHttpResponseBuilder;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import rx.Observable;
 
+import com.google.common.base.Charsets;
 import com.google.common.collect.Maps;
 
 /**
@@ -48,9 +50,11 @@ public class MockingCaravanHttpClient implements CaravanHttpClient {
   .status(HttpStatus.SC_NOT_FOUND)
   .reason("Not Found")
   .build();
-  private final Map<String, CaravanHttpResponse> store = Maps.newConcurrentMap();
 
-  private CaravanHttpResponse matchesAll;
+  private final Map<String, CaravanHttpResponse> responsePerServiceUrl = Maps.newConcurrentMap();
+  private final Map<String, CaravanHttpResponse> responsePerUrl = Maps.newConcurrentMap();
+  private final Map<String, CaravanHttpResponse> responsePerService = Maps.newConcurrentMap();
+  private CaravanHttpResponse responseMatchesAll;
 
   private Boolean hasValidConfigurationAll;
   private Map<String, Boolean> hasValidConfiguration = Maps.newConcurrentMap();
@@ -63,69 +67,47 @@ public class MockingCaravanHttpClient implements CaravanHttpClient {
   @Override
   public Observable<CaravanHttpResponse> execute(final CaravanHttpRequest request, final Observable<CaravanHttpResponse> fallback) {
     String url = request.getUrl();
-    // search for equal URL
-    if (store.containsKey(url)) {
-      return Observable.just(store.get(url));
+
+    // search for matching service and url (starting with)
+    String serviceUrlAsKey = buildServiceUrlKey(request.getServiceName(), url);
+    for (Entry<String, CaravanHttpResponse> entry : responsePerServiceUrl.entrySet()) {
+      if (StringUtils.startsWith(serviceUrlAsKey, entry.getKey())) {
+        return Observable.just(entry.getValue());
+      }
     }
-    // search for URL starting with
-    for (Entry<String, CaravanHttpResponse> entry : store.entrySet()) {
-      if (url.startsWith(entry.getKey())) {
+    // search for matching url (starting with)
+    for (Entry<String, CaravanHttpResponse> entry : responsePerUrl.entrySet()) {
+      if (StringUtils.startsWith(url, entry.getKey())) {
         return Observable.just(entry.getValue());
       }
     }
     // search for service
-    if (store.containsKey(request.getServiceName())) {
-      return Observable.just(store.get(request.getServiceName()));
+    if (responsePerService.containsKey(request.getServiceName())) {
+      return Observable.just(responsePerService.get(request.getServiceName()));
     }
-    else if (matchesAll != null) {
-      return Observable.just(matchesAll);
+    else if (responseMatchesAll != null) {
+      return Observable.just(responseMatchesAll);
     }
     else {
-      LOGGER.warn("No response register for url: " + url);
+      LOGGER.warn("No response registered for url: " + url);
       return fallback;
     }
   }
 
   @Override
   public boolean hasValidConfiguration(String serviceName) {
-    if (hasValidConfigurationAll != null) {
-      return hasValidConfigurationAll.booleanValue();
-    }
-    else {
-      Boolean validConfig = hasValidConfiguration.get(serviceName);
-      if (validConfig == null) {
-        return true;
+    Boolean validConfig = hasValidConfiguration.get(serviceName);
+    if (validConfig == null) {
+      if (hasValidConfigurationAll != null) {
+        return hasValidConfigurationAll.booleanValue();
       }
       else {
-        return validConfig.booleanValue();
+        return true;
       }
     }
-  }
-
-  /**
-   * Registers a response for the given service and URL.
-   * @param url The URL
-   * @param response The response to register
-   */
-  public void mockRequest(final String url, final CaravanHttpResponse response) {
-    store.put(url, response);
-  }
-
-  /**
-   * Registers the response for the given service name.
-   * @param serviceName The service name
-   * @param response The response to return
-   */
-  public void mockRequestByService(final String serviceName, final CaravanHttpResponse response) {
-    store.put(serviceName, response);
-  }
-
-  /**
-   * Returns the given response for any request.
-   * @param response Response to return
-   */
-  public void mockAnyRequest(final CaravanHttpResponse response) {
-    matchesAll = response;
+    else {
+      return validConfig.booleanValue();
+    }
   }
 
   /**
@@ -143,6 +125,100 @@ public class MockingCaravanHttpClient implements CaravanHttpClient {
    */
   public void setValidConfigurationAnyService(boolean valid) {
     hasValidConfigurationAll = valid;
+  }
+
+  /**
+   * Registers a response for the given service and URL.
+   * @param url The URL
+   * @param response The response to register
+   */
+  public void mockServiceRequest(final String serviceName, final String url, final CaravanHttpResponse response) {
+    responsePerServiceUrl.put(buildServiceUrlKey(serviceName, url), response);
+  }
+
+  /**
+   * Registers a response for the given service and URL.
+   * @param url The URL
+   * @param payload Payload to return with an HTTP 200 answer
+   */
+  public void mockServiceRequest(final String serviceName, final String url, final String payload) {
+    mockServiceRequest(serviceName, url, toResponse(payload));
+  }
+
+  /**
+   * Registers the response for the given service name.
+   * @param serviceName The service name
+   * @param response The response to return
+   */
+  public void mockServiceAnyRequest(final String serviceName, final CaravanHttpResponse response) {
+    responsePerService.put(serviceName, response);
+  }
+
+  /**
+   * Registers the response for the given service name.
+   * @param serviceName The service name
+   * @param payload Payload to return with an HTTP 200 answer
+   */
+  public void mockServiceAnyRequest(final String serviceName, final String payload) {
+    mockServiceAnyRequest(serviceName, toResponse(payload));
+  }
+
+  /**
+   * Registers a response for the given service and URL.
+   * @param url The URL
+   * @param response The response to register
+   */
+  public void mockRequest(final String url, final CaravanHttpResponse response) {
+    responsePerUrl.put(url, response);
+  }
+
+  /**
+   * Registers a response for the given service and URL.
+   * @param url The URL
+   * @param payload Payload to return with an HTTP 200 answer
+   */
+  public void mockRequest(final String url, final String payload) {
+    mockRequest(url, toResponse(payload));
+  }
+
+  /**
+   * Returns the given response for any request.
+   * @param response Response to return
+   */
+  public void mockAnyRequest(final CaravanHttpResponse response) {
+    responseMatchesAll = response;
+  }
+
+  /**
+   * Returns the given response for any request.
+   * @param payload Payload to return with an HTTP 200 answer
+   */
+  public void mockAnyRequest(final String payload) {
+    mockAnyRequest(toResponse(payload));
+  }
+
+  /**
+   * Registers the response for the given service name.
+   * @param serviceName The service name
+   * @param response The response to return
+   * @deprecated Please use {@link #mockServiceAnyRequest(String, CaravanHttpResponse)} instead.
+   */
+  @Deprecated
+  public void mockRequestByService(final String serviceName, final CaravanHttpResponse response) {
+    mockServiceAnyRequest(serviceName, response);
+  }
+
+  
+  private static CaravanHttpResponse toResponse(String payload) {
+    return new CaravanHttpResponseBuilder()
+    .status(200)
+    .reason("OK")
+    .body(payload.toString(), Charsets.UTF_8)
+    .build();
+  }
+
+  private static String buildServiceUrlKey(String serviceName, String url) {
+    return serviceName + "#" + url;
   }
 
 }
