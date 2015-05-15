@@ -49,7 +49,11 @@ public class MockingCaravanHttpClient implements CaravanHttpClient {
   .reason("Not Found")
   .build();
   private final Map<String, CaravanHttpResponse> store = Maps.newConcurrentMap();
+
   private CaravanHttpResponse matchesAll;
+
+  private Boolean hasValidConfigurationAll;
+  private Map<String, Boolean> hasValidConfiguration = Maps.newConcurrentMap();
 
   @Override
   public Observable<CaravanHttpResponse> execute(final CaravanHttpRequest request) {
@@ -84,7 +88,18 @@ public class MockingCaravanHttpClient implements CaravanHttpClient {
 
   @Override
   public boolean hasValidConfiguration(String serviceName) {
-    return true;
+    if (hasValidConfigurationAll != null) {
+      return hasValidConfigurationAll.booleanValue();
+    }
+    else {
+      Boolean validConfig = hasValidConfiguration.get(serviceName);
+      if (validConfig == null) {
+        return true;
+      }
+      else {
+        return validConfig.booleanValue();
+      }
+    }
   }
 
   /**
@@ -111,6 +126,23 @@ public class MockingCaravanHttpClient implements CaravanHttpClient {
    */
   public void mockAnyRequest(final CaravanHttpResponse response) {
     matchesAll = response;
+  }
+
+  /**
+   * Set valid configuration for a given service (if not set defaults to true)
+   * @param serviceName Service name
+   * @param valid Configuration valid status
+   */
+  public void setValidConfiguration(String serviceName, boolean valid) {
+    hasValidConfiguration.put(serviceName, valid);
+  }
+
+  /**
+   * Set valid configuration for any service.
+   * @param valid Configuration valid status
+   */
+  public void setValidConfigurationAnyService(boolean valid) {
+    hasValidConfigurationAll = valid;
   }
 
 }
