@@ -20,8 +20,6 @@
 package io.wcm.caravan.testing.pipeline;
 
 import io.wcm.caravan.io.http.CaravanHttpClient;
-import io.wcm.caravan.io.http.response.CaravanHttpResponse;
-import io.wcm.caravan.io.http.response.CaravanHttpResponseBuilder;
 import io.wcm.caravan.pipeline.JsonPipelineFactory;
 import io.wcm.caravan.pipeline.cache.spi.CacheAdapter;
 import io.wcm.caravan.pipeline.impl.JsonPipelineFactoryImpl;
@@ -30,11 +28,12 @@ import io.wcm.caravan.testing.json.JsonFixture;
 import io.wcm.caravan.testing.json.TestConfiguration;
 import io.wcm.caravan.testing.pipeline.cache.InMemoryCacheAdapter;
 
+import java.io.InputStream;
+
 import org.apache.sling.testing.mock.osgi.context.OsgiContextImpl;
 import org.junit.rules.ExternalResource;
 
 import com.codahale.metrics.MetricRegistry;
-import com.google.common.base.Charsets;
 
 /**
  * JUnit rule for setting up a OSGi-based context with {@link JsonPipelineFactory} support.
@@ -86,25 +85,16 @@ public final class JsonPipelineContext extends ExternalResource {
   }
 
   /**
-   * Mock any request to return the given payload
-   * @param payload Payload
-   */
-  public void mockAnyRequest(final Object payload) {
-    CaravanHttpResponse response = new CaravanHttpResponseBuilder()
-    .status(200)
-    .reason("OK")
-    .body(payload.toString(), Charsets.UTF_8)
-    .build();
-    caravanHttpClient.mockAnyRequest(response);
-  }
-
-  /**
    * Load a JSON fixture from classpath.
-   * @param classPath Resource path in classpath
+   * @param classpathResource Resource path in classpath
    * @return {@link JsonFixture} item
    */
-  public JsonFixture loadJson(final String classPath) {
-    return new JsonFixture(getClass().getResourceAsStream(classPath));
+  public JsonFixture loadJson(final String classpathResource) {
+    InputStream is = getClass().getResourceAsStream(classpathResource);
+    if (is == null) {
+      throw new IllegalArgumentException("Classpath resource not found: " + classpathResource);
+    }
+    return new JsonFixture(is);
   }
 
 }
