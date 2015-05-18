@@ -129,6 +129,7 @@ public class MockingCaravanHttpClient implements CaravanHttpClient {
 
   /**
    * Registers a response for the given service and URL.
+   * @param serviceName Service name
    * @param url The URL
    * @param response The response to register
    */
@@ -138,6 +139,7 @@ public class MockingCaravanHttpClient implements CaravanHttpClient {
 
   /**
    * Registers a response for the given service and URL.
+   * @param serviceName Service name
    * @param url The URL
    * @param payload Payload to return with an HTTP 200 answer
    */
@@ -208,7 +210,7 @@ public class MockingCaravanHttpClient implements CaravanHttpClient {
     mockServiceAnyRequest(serviceName, response);
   }
 
-  
+
   private static CaravanHttpResponse toResponse(String payload) {
     return new CaravanHttpResponseBuilder()
     .status(200)

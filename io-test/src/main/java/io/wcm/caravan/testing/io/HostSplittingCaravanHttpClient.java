@@ -46,8 +46,9 @@ public class HostSplittingCaravanHttpClient implements CaravanHttpClient {
   private final Set<String> hosts;
 
   /**
-   * @param delegateForHost
-   * @param hosts
+   * @param delegateForHost HTTP client used for given hosts
+   * @param delegateOthers HTTP client used if not matching given hosts
+   * @param hosts Host names using given HTTP client
    */
   public HostSplittingCaravanHttpClient(final CaravanHttpClient delegateForHost, final CaravanHttpClient delegateOthers, final String... hosts) {
     this.delegateForHosts = delegateForHost;
