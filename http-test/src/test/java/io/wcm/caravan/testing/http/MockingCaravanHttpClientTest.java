@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package io.wcm.caravan.testing.io;
+package io.wcm.caravan.testing.http;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;

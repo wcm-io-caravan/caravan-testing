@@ -23,7 +23,7 @@ import io.wcm.caravan.io.http.CaravanHttpClient;
 import io.wcm.caravan.pipeline.JsonPipelineFactory;
 import io.wcm.caravan.pipeline.cache.spi.CacheAdapter;
 import io.wcm.caravan.pipeline.impl.JsonPipelineFactoryImpl;
-import io.wcm.caravan.testing.io.MockingCaravanHttpClient;
+import io.wcm.caravan.testing.http.MockingCaravanHttpClient;
 import io.wcm.caravan.testing.json.JsonFixture;
 import io.wcm.caravan.testing.json.TestConfiguration;
 import io.wcm.caravan.testing.pipeline.cache.InMemoryCacheAdapter;
