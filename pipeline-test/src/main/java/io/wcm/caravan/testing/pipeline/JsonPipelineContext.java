@@ -72,14 +72,23 @@ public final class JsonPipelineContext extends ExternalResource {
     jsonPipelineFactory = context.registerInjectActivateService(new JsonPipelineFactoryImpl());
   }
 
+  /**
+   * @return Mocked HTTP client
+   */
   public MockingCaravanHttpClient getCaravanHttpClient() {
     return this.caravanHttpClient;
   }
 
+  /**
+   * @return Mocked Metrics registry
+   */
   public MetricRegistry getMetricRegistry() {
     return this.metricRegistry;
   }
 
+  /**
+   * @return JSON pipeline factory
+   */
   public JsonPipelineFactory getJsonPipelineFactory() {
     return this.jsonPipelineFactory;
   }
