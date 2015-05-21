@@ -82,7 +82,7 @@ public abstract class AbstractOsgiTest {
     .reason("OK")
     .body(payload.toString(), Charsets.UTF_8)
     .build();
-    resilientHttp.mockAnyRequest(response);
+    resilientHttp.mockRequest().response(response);
   }
 
   protected JsonPipelineFactory registerJsonPipelineFactory() {

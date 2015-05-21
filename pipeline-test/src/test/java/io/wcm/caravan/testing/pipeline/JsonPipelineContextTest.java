@@ -40,7 +40,7 @@ public class JsonPipelineContextTest {
 
   @Test
   public void testPipeline() {
-    pipelineContext.getCaravanHttpClient().mockAnyRequest(PAYLOAD);
+    pipelineContext.getCaravanHttpClient().mockRequest().response(PAYLOAD);
 
     CaravanHttpRequest request = new CaravanHttpRequestBuilder("service1").append("/url1").build();
     JsonPipeline pipeline = pipelineContext.getJsonPipelineFactory().create(request);

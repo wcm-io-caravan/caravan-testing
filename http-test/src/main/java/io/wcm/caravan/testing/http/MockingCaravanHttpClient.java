@@ -24,17 +24,16 @@ import io.wcm.caravan.io.http.request.CaravanHttpRequest;
 import io.wcm.caravan.io.http.response.CaravanHttpResponse;
 import io.wcm.caravan.io.http.response.CaravanHttpResponseBuilder;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import rx.Observable;
 
-import com.google.common.base.Charsets;
 import com.google.common.collect.Maps;
 
 /**
@@ -51,10 +50,7 @@ public class MockingCaravanHttpClient implements CaravanHttpClient {
   .reason("Not Found")
   .build();
 
-  private final Map<String, CaravanHttpResponse> responsePerServiceUrl = Maps.newConcurrentMap();
-  private final Map<String, CaravanHttpResponse> responsePerUrl = Maps.newConcurrentMap();
-  private final Map<String, CaravanHttpResponse> responsePerService = Maps.newConcurrentMap();
-  private CaravanHttpResponse responseMatchesAll;
+  private final List<RequestMatcher> requestMatchers = new ArrayList<>();
 
   private Boolean hasValidConfigurationAll;
   private Map<String, Boolean> hasValidConfiguration = Maps.newConcurrentMap();
@@ -66,32 +62,17 @@ public class MockingCaravanHttpClient implements CaravanHttpClient {
 
   @Override
   public Observable<CaravanHttpResponse> execute(final CaravanHttpRequest request, final Observable<CaravanHttpResponse> fallback) {
+    String serviceName = request.getServiceName();
     String url = request.getUrl();
 
-    // search for matching service and url (starting with)
-    String serviceUrlAsKey = buildServiceUrlKey(request.getServiceName(), url);
-    for (Entry<String, CaravanHttpResponse> entry : responsePerServiceUrl.entrySet()) {
-      if (StringUtils.startsWith(serviceUrlAsKey, entry.getKey())) {
-        return Observable.just(entry.getValue());
+    for (RequestMatcher matcher : requestMatchers) {
+      if (matcher.matches(serviceName, url)) {
+        return Observable.just(matcher.getResponse());
       }
     }
-    // search for matching url (starting with)
-    for (Entry<String, CaravanHttpResponse> entry : responsePerUrl.entrySet()) {
-      if (StringUtils.startsWith(url, entry.getKey())) {
-        return Observable.just(entry.getValue());
-      }
-    }
-    // search for service
-    if (responsePerService.containsKey(request.getServiceName())) {
-      return Observable.just(responsePerService.get(request.getServiceName()));
-    }
-    else if (responseMatchesAll != null) {
-      return Observable.just(responseMatchesAll);
-    }
-    else {
-      LOGGER.warn("No response registered for url: " + url);
-      return fallback;
-    }
+
+    LOGGER.warn("No response registered for url: " + url);
+    return fallback;
   }
 
   @Override
@@ -128,99 +109,13 @@ public class MockingCaravanHttpClient implements CaravanHttpClient {
   }
 
   /**
-   * Registers a response for the given service and URL.
-   * @param serviceName Service name
-   * @param url The URL
-   * @param response The response to register
+   * Define which request should be mocked with which response.
+   * @return Request matcher
    */
-  public void mockServiceRequest(final String serviceName, final String url, final CaravanHttpResponse response) {
-    responsePerServiceUrl.put(buildServiceUrlKey(serviceName, url), response);
-  }
-
-  /**
-   * Registers a response for the given service and URL.
-   * @param serviceName Service name
-   * @param url The URL
-   * @param payload Payload to return with an HTTP 200 answer
-   */
-  public void mockServiceRequest(final String serviceName, final String url, final String payload) {
-    mockServiceRequest(serviceName, url, toResponse(payload));
-  }
-
-  /**
-   * Registers the response for the given service name.
-   * @param serviceName The service name
-   * @param response The response to return
-   */
-  public void mockServiceAnyRequest(final String serviceName, final CaravanHttpResponse response) {
-    responsePerService.put(serviceName, response);
-  }
-
-  /**
-   * Registers the response for the given service name.
-   * @param serviceName The service name
-   * @param payload Payload to return with an HTTP 200 answer
-   */
-  public void mockServiceAnyRequest(final String serviceName, final String payload) {
-    mockServiceAnyRequest(serviceName, toResponse(payload));
-  }
-
-  /**
-   * Registers a response for the given service and URL.
-   * @param url The URL
-   * @param response The response to register
-   */
-  public void mockRequest(final String url, final CaravanHttpResponse response) {
-    responsePerUrl.put(url, response);
-  }
-
-  /**
-   * Registers a response for the given service and URL.
-   * @param url The URL
-   * @param payload Payload to return with an HTTP 200 answer
-   */
-  public void mockRequest(final String url, final String payload) {
-    mockRequest(url, toResponse(payload));
-  }
-
-  /**
-   * Returns the given response for any request.
-   * @param response Response to return
-   */
-  public void mockAnyRequest(final CaravanHttpResponse response) {
-    responseMatchesAll = response;
-  }
-
-  /**
-   * Returns the given response for any request.
-   * @param payload Payload to return with an HTTP 200 answer
-   */
-  public void mockAnyRequest(final String payload) {
-    mockAnyRequest(toResponse(payload));
-  }
-
-  /**
-   * Registers the response for the given service name.
-   * @param serviceName The service name
-   * @param response The response to return
-   * @deprecated Please use {@link #mockServiceAnyRequest(String, CaravanHttpResponse)} instead.
-   */
-  @Deprecated
-  public void mockRequestByService(final String serviceName, final CaravanHttpResponse response) {
-    mockServiceAnyRequest(serviceName, response);
-  }
-
-
-  private static CaravanHttpResponse toResponse(String payload) {
-    return new CaravanHttpResponseBuilder()
-    .status(200)
-    .reason("OK")
-    .body(payload.toString(), Charsets.UTF_8)
-    .build();
-  }
-
-  private static String buildServiceUrlKey(String serviceName, String url) {
-    return serviceName + "#" + url;
+  public RequestMatcher mockRequest() {
+    RequestMatcher matcher = new RequestMatcher();
+    requestMatchers.add(matcher);
+    return matcher;
   }
 
 }
