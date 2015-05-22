@@ -35,7 +35,7 @@
 
   <name>Testing Resilient HTTP</name>
   <description>An Resilient HTTP testing module.</description>
-  
+
   <scm>
     <connection>scm:git:git@github.com:wcm-io/wcm-io-caravan.git</connection>
     <developerConnection>scm:git:git@github.com:wcm-io/wcm-io-caravan.git</developerConnection>
@@ -64,7 +64,7 @@
       <artifactId>commons-lang3</artifactId>
       <scope>compile</scope>
     </dependency>
-    
+
     <dependency>
       <groupId>org.hamcrest</groupId>
       <artifactId>hamcrest-core</artifactId>
