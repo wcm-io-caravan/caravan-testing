@@ -25,7 +25,7 @@ import io.wcm.caravan.pipeline.cache.spi.CacheAdapter;
 import io.wcm.caravan.pipeline.impl.JsonPipelineFactoryImpl;
 import io.wcm.caravan.testing.http.MockingCaravanHttpClient;
 import io.wcm.caravan.testing.json.JsonFixture;
-import io.wcm.caravan.testing.json.TestConfiguration;
+import io.wcm.caravan.testing.json.JsonTestEnvironment;
 import io.wcm.caravan.testing.pipeline.cache.InMemoryCacheAdapter;
 
 import java.io.InputStream;
@@ -57,7 +57,7 @@ public final class JsonPipelineContext extends ExternalResource {
   @Override
   protected void before() {
     // configure JSON infrastructure
-    TestConfiguration.init();
+    JsonTestEnvironment.init();
 
     // prepare in-memory cache adapter
     cacheAdapter = new InMemoryCacheAdapter();

@@ -26,14 +26,14 @@ import net.javacrumbs.jsonunit.core.Option;
 /**
  * Configuration for the test module. Contains helping classes and initializes JSON path to use Jackson.
  */
-public final class TestConfiguration {
+public final class JsonTestEnvironment {
 
   /**
    * JSON unit configuration with non-strict settings.
    */
   public static final Configuration JSONUNIT_CONF = Configuration.empty().withOptions(Option.IGNORING_EXTRA_FIELDS, Option.TREATING_NULL_AS_ABSENT);
 
-  private TestConfiguration() {
+  private JsonTestEnvironment() {
     // nothing to do
   }
 

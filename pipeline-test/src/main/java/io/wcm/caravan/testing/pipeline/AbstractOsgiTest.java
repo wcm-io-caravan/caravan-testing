@@ -27,7 +27,7 @@ import io.wcm.caravan.pipeline.cache.spi.CacheAdapter;
 import io.wcm.caravan.pipeline.impl.JsonPipelineFactoryImpl;
 import io.wcm.caravan.testing.http.MockingCaravanHttpClient;
 import io.wcm.caravan.testing.json.JsonFixture;
-import io.wcm.caravan.testing.json.TestConfiguration;
+import io.wcm.caravan.testing.json.JsonTestEnvironment;
 import io.wcm.caravan.testing.pipeline.cache.InMemoryCacheAdapter;
 
 import org.apache.sling.testing.mock.osgi.junit.OsgiContext;
@@ -61,7 +61,7 @@ public abstract class AbstractOsgiTest {
    */
   @Before
   public void setUp() {
-    TestConfiguration.init();
+    JsonTestEnvironment.init();
 
     cacheAdapter = new InMemoryCacheAdapter();
     context.registerService(CacheAdapter.class, cacheAdapter);

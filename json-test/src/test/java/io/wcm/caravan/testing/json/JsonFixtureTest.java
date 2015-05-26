@@ -37,7 +37,7 @@ public class JsonFixtureTest {
 
   @Before
   public void setUp() {
-    TestConfiguration.init();
+    JsonTestEnvironment.init();
     underTest = new JsonFixture(getClass().getResourceAsStream("/example.json"));
   }
 
