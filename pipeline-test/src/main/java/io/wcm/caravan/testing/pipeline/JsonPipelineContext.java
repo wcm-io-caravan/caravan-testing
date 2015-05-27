@@ -87,6 +87,13 @@ public final class JsonPipelineContext extends ExternalResource {
   }
 
   /**
+   * @return Returns the cacheAdapter.
+   */
+  public InMemoryCacheAdapter getCacheAdapter() {
+    return this.cacheAdapter;
+  }
+
+  /**
    * @return JSON pipeline factory
    */
   public JsonPipelineFactory getJsonPipelineFactory() {
