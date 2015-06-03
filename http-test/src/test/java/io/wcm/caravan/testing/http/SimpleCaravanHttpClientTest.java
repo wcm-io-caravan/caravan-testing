@@ -44,47 +44,25 @@ import com.github.tomakehurst.wiremock.junit.WireMockRule;
 public class SimpleCaravanHttpClientTest {
 
   @Rule
-  public WireMockRule wireMock = new WireMockRule(8080);
+  public WireMockRule wireMock = new WireMockRule(0);
 
   private SimpleCaravanHttpClient underTest;
 
   private CaravanHttpRequest request;
-
-  private static final String DEFAULT_HOST = "http://localhost:8080";
-
-  private static final String CUSTOM_HOST = "http://localhost:";
 
   @Before
   public void setUp() {
     underTest = new SimpleCaravanHttpClient();
   }
 
-  private void setHost(int port) {
-    wireMock = new WireMockRule(port);
-    underTest.setHost(getHost(port));
-  }
-
-  private String getHost(int port) {
-    return CUSTOM_HOST + port;
-  }
-
-
   @Test
   public void testHasValidConfiguration() {
     assertTrue(underTest.hasValidConfiguration("service"));
   }
 
-  @Test
-  public void testGetHost() {
-    assertEquals(DEFAULT_HOST, underTest.getHost());
-    underTest.setHost(getHost(1231));
-    assertEquals(getHost(1231), underTest.getHost());
-  }
-
   @Ignore
   @Test
   public void testExecuteOK() throws IOException {
-    setHost(1232);
     wireMock.stubFor(any(urlEqualTo("/service"))
         .willReturn(aResponse()
             .withStatus(HttpStatus.SC_OK)
@@ -99,7 +77,6 @@ public class SimpleCaravanHttpClientTest {
   @Ignore
   @Test
   public void testExecuteOKsubPath() throws IOException {
-    setHost(1233);
     wireMock.stubFor(any(urlEqualTo("/service/subpath"))
         .willReturn(aResponse()
             .withStatus(HttpStatus.SC_OK)
@@ -114,7 +91,6 @@ public class SimpleCaravanHttpClientTest {
   @Ignore
   @Test
   public void testExecuteOKquery() throws IOException {
-    setHost(1234);
     wireMock.stubFor(any(urlEqualTo("/service?queryParam=1"))
         .willReturn(aResponse()
             .withStatus(HttpStatus.SC_OK)
@@ -129,7 +105,6 @@ public class SimpleCaravanHttpClientTest {
   @Ignore
   @Test(expected = RuntimeException.class)
   public void testExecuteNotFound() throws IOException {
-    setHost(1235);
     wireMock.stubFor(any(urlEqualTo("/service"))
         .willReturn(aResponse()
             .withStatus(HttpStatus.SC_NOT_FOUND)
@@ -143,7 +118,6 @@ public class SimpleCaravanHttpClientTest {
   @Ignore
   @Test(expected = RuntimeException.class)
   public void testExecuteWithFallbackNotFound() throws IOException {
-    setHost(1236);
     wireMock.stubFor(any(urlEqualTo("/service"))
         .willReturn(aResponse()
             .withStatus(HttpStatus.SC_NOT_FOUND)
