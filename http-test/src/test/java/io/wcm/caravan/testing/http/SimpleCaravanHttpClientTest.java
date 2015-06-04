@@ -33,7 +33,6 @@ import java.io.IOException;
 
 import org.apache.http.HttpStatus;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -53,6 +52,7 @@ public class SimpleCaravanHttpClientTest {
   @Before
   public void setUp() {
     underTest = new SimpleCaravanHttpClient();
+    underTest.setHost("http://localhost:" + wireMock.port());
   }
 
   @Test
@@ -60,7 +60,7 @@ public class SimpleCaravanHttpClientTest {
     assertTrue(underTest.hasValidConfiguration("service"));
   }
 
-  @Ignore
+
   @Test
   public void testExecuteOK() throws IOException {
     wireMock.stubFor(any(urlEqualTo("/service"))
@@ -74,7 +74,7 @@ public class SimpleCaravanHttpClientTest {
     assertExecuteRequestFallback(HttpStatus.SC_OK, "test");
   }
 
-  @Ignore
+
   @Test
   public void testExecuteOKsubPath() throws IOException {
     wireMock.stubFor(any(urlEqualTo("/service/subpath"))
@@ -88,7 +88,7 @@ public class SimpleCaravanHttpClientTest {
     assertExecuteRequestFallback(HttpStatus.SC_OK, "test");
   }
 
-  @Ignore
+
   @Test
   public void testExecuteOKquery() throws IOException {
     wireMock.stubFor(any(urlEqualTo("/service?queryParam=1"))
@@ -102,20 +102,20 @@ public class SimpleCaravanHttpClientTest {
     assertExecuteRequestFallback(HttpStatus.SC_OK, "test");
   }
 
-  @Ignore
+
   @Test(expected = RuntimeException.class)
   public void testExecuteNotFound() throws IOException {
-    wireMock.stubFor(any(urlEqualTo("/service"))
+    wireMock.stubFor(any(urlEqualTo("/service2"))
         .willReturn(aResponse()
             .withStatus(HttpStatus.SC_NOT_FOUND)
             .withBody("test")
             ));
 
-    request = new CaravanHttpRequestBuilder("service").append("/service").build();
+    request = new CaravanHttpRequestBuilder("service").append("/service2").build();
     assertExecuteRequest(HttpStatus.SC_NOT_FOUND, "test");
   }
 
-  @Ignore
+
   @Test(expected = RuntimeException.class)
   public void testExecuteWithFallbackNotFound() throws IOException {
     wireMock.stubFor(any(urlEqualTo("/service"))
@@ -127,8 +127,6 @@ public class SimpleCaravanHttpClientTest {
     request = new CaravanHttpRequestBuilder("service").append("/service").build();
     assertExecuteRequestFallback(HttpStatus.SC_NOT_FOUND, "test");
   }
-
-
 
   private void assertExecuteRequest(int status, String payload) throws IOException {
     Observable<CaravanHttpResponse> responseObservable = underTest.execute(request);
