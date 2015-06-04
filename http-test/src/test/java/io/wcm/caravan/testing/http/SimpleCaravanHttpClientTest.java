@@ -129,12 +129,14 @@ public class SimpleCaravanHttpClientTest {
   }
 
   private void assertExecuteRequest(int status, String payload) throws IOException {
+    assertEquals(underTest.getHost(), "http://localhost:" + wireMock.port());
     Observable<CaravanHttpResponse> responseObservable = underTest.execute(request);
     CaravanHttpResponse actualResponse = responseObservable.toBlocking().single();
     assertResponse(actualResponse, status, payload);
   }
 
   private void assertExecuteRequestFallback(int status, String payload) throws IOException {
+    assertEquals(underTest.getHost(), "http://localhost:" + wireMock.port());
     Observable<CaravanHttpResponse> responseObservable = underTest.execute(request, Observable.empty());
     CaravanHttpResponse actualResponse = responseObservable.toBlocking().single();
     assertResponse(actualResponse, status, payload);
