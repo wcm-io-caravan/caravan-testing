@@ -27,6 +27,7 @@ import io.wcm.caravan.io.http.response.CaravanHttpResponseBuilder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.http.HttpStatus;
 import org.slf4j.Logger;
@@ -34,6 +35,7 @@ import org.slf4j.LoggerFactory;
 
 import rx.Observable;
 
+import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 
 /**
@@ -54,6 +56,7 @@ public class MockingCaravanHttpClient implements CaravanHttpClient {
 
   private Boolean hasValidConfigurationAll;
   private Map<String, Boolean> hasValidConfiguration = Maps.newConcurrentMap();
+  private Map<RequestMatcher, AtomicInteger> matchingCounter = Maps.newHashMap();
 
   @Override
   public Observable<CaravanHttpResponse> execute(final CaravanHttpRequest request) {
@@ -67,6 +70,7 @@ public class MockingCaravanHttpClient implements CaravanHttpClient {
 
     for (RequestMatcher matcher : requestMatchers) {
       if (matcher.matches(serviceName, url)) {
+        matchingCounter.get(matcher).incrementAndGet();
         return Observable.just(matcher.getResponse());
       }
     }
@@ -115,7 +119,22 @@ public class MockingCaravanHttpClient implements CaravanHttpClient {
   public RequestMatcher mockRequest() {
     RequestMatcher matcher = new RequestMatcher();
     requestMatchers.add(matcher);
+    matchingCounter.put(matcher, new AtomicInteger(0));
     return matcher;
+  }
+
+  /**
+   * @return Request Matcher counter
+   */
+  public Map<RequestMatcher, AtomicInteger> getMatchingCounter() {
+    return ImmutableMap.copyOf(matchingCounter);
+  }
+
+  /**
+   * @return Returns the requestMatchers.
+   */
+  public List<RequestMatcher> getRequestMatchers() {
+    return this.requestMatchers;
   }
 
 }
