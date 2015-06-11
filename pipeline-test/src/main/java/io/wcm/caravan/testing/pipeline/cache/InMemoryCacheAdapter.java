@@ -24,6 +24,8 @@ import io.wcm.caravan.pipeline.cache.spi.CacheAdapter;
 
 import java.util.Map;
 
+import org.osgi.annotation.versioning.ProviderType;
+
 import rx.Observable;
 
 import com.google.common.collect.Maps;
@@ -31,7 +33,8 @@ import com.google.common.collect.Maps;
 /**
  * An in-memory implementation of the {@link CacheAdapter} for tests.
  */
-public class InMemoryCacheAdapter implements CacheAdapter {
+@ProviderType
+public final class InMemoryCacheAdapter implements CacheAdapter {
 
   private final Map<String, String> store = Maps.newConcurrentMap();
 

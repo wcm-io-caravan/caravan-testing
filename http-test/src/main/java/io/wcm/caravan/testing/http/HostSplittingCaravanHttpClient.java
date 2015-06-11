@@ -27,6 +27,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Set;
 
+import org.osgi.annotation.versioning.ProviderType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,7 +38,8 @@ import com.google.common.collect.Sets;
 /**
  * Depending on the host of the given request, decides which delegate to use.
  */
-public class HostSplittingCaravanHttpClient implements CaravanHttpClient {
+@ProviderType
+public final class HostSplittingCaravanHttpClient implements CaravanHttpClient {
 
   private static final Logger LOG = LoggerFactory.getLogger(HostSplittingCaravanHttpClient.class);
 

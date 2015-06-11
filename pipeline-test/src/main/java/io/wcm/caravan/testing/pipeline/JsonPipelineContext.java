@@ -32,12 +32,14 @@ import java.io.InputStream;
 
 import org.apache.sling.testing.mock.osgi.context.OsgiContextImpl;
 import org.junit.rules.ExternalResource;
+import org.osgi.annotation.versioning.ProviderType;
 
 import com.codahale.metrics.MetricRegistry;
 
 /**
  * JUnit rule for setting up a OSGi-based context with {@link JsonPipelineFactory} support.
  */
+@ProviderType
 public final class JsonPipelineContext extends ExternalResource {
 
   private final OsgiContextImpl context;

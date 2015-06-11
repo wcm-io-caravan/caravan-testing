@@ -23,9 +23,12 @@ import io.wcm.caravan.commons.jsonpath.impl.JsonPathDefaultConfig;
 import net.javacrumbs.jsonunit.core.Configuration;
 import net.javacrumbs.jsonunit.core.Option;
 
+import org.osgi.annotation.versioning.ProviderType;
+
 /**
  * Configuration for the test module. Contains helping classes and initializes JSON path to use Jackson.
  */
+@ProviderType
 public final class JsonTestEnvironment {
 
   /**

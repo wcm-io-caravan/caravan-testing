@@ -30,6 +30,7 @@ import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.core.IsEqual;
 import org.hamcrest.core.StringStartsWith;
+import org.osgi.annotation.versioning.ProviderType;
 
 import com.google.common.base.Charsets;
 
@@ -37,6 +38,7 @@ import com.google.common.base.Charsets;
  * Defines which requests should match.
  * Only one service and one url matcher can be defined.
  */
+@ProviderType
 public final class RequestMatcher {
 
   private String serviceName;

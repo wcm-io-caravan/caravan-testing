@@ -28,13 +28,15 @@ import java.io.IOException;
 import java.net.URL;
 
 import org.apache.commons.io.IOUtils;
+import org.osgi.annotation.versioning.ProviderType;
 
 import rx.Observable;
 
 /**
  * Very simple HTTP client only performing GET requests.
  */
-public class SimpleCaravanHttpClient implements CaravanHttpClient {
+@ProviderType
+public final class SimpleCaravanHttpClient implements CaravanHttpClient {
 
   private String host = "http://localhost:8080";
 

@@ -30,6 +30,7 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.http.HttpStatus;
+import org.osgi.annotation.versioning.ProviderType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,7 +44,8 @@ import com.google.common.collect.Maps;
  * Returns a 404 NOT FOUND response if there is
  * no response registered for the request.
  */
-public class MockingCaravanHttpClient implements CaravanHttpClient {
+@ProviderType
+public final class MockingCaravanHttpClient implements CaravanHttpClient {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(MockingCaravanHttpClient.class);
 

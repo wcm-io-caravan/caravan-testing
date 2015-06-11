@@ -21,6 +21,8 @@ package io.wcm.caravan.testing.json;
 
 import java.io.InputStream;
 
+import org.osgi.annotation.versioning.ProviderType;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
@@ -29,7 +31,8 @@ import com.jayway.jsonpath.Predicate;
 /**
  * A wrapper for JSON payload and JSON path operations which create a new {@link JsonFixture} object.
  */
-public class JsonFixture {
+@ProviderType
+public final class JsonFixture {
 
   private final DocumentContext doc;
 

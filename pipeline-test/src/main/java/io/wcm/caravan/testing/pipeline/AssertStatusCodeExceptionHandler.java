@@ -23,12 +23,16 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
 import io.wcm.caravan.pipeline.JsonPipelineExceptionHandler;
 import io.wcm.caravan.pipeline.JsonPipelineOutput;
+
+import org.osgi.annotation.versioning.ProviderType;
+
 import rx.Observable;
 
 /**
  * Checks the HTTP status code of the error response.
  */
-public class AssertStatusCodeExceptionHandler implements JsonPipelineExceptionHandler {
+@ProviderType
+public final class AssertStatusCodeExceptionHandler implements JsonPipelineExceptionHandler {
 
   private final int statusCode;
 
