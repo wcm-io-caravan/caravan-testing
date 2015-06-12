@@ -67,11 +67,11 @@ public final class MockingCaravanHttpClient implements CaravanHttpClient {
 
   @Override
   public Observable<CaravanHttpResponse> execute(final CaravanHttpRequest request, final Observable<CaravanHttpResponse> fallback) {
-    String serviceName = request.getServiceName();
+    String serviceId = request.getServiceId();
     String url = request.getUrl();
 
     for (RequestMatcher matcher : requestMatchers) {
-      if (matcher.matches(serviceName, url)) {
+      if (matcher.matches(serviceId, url)) {
         matchingCounter.get(matcher).incrementAndGet();
         return Observable.just(matcher.getResponse());
       }
@@ -82,8 +82,8 @@ public final class MockingCaravanHttpClient implements CaravanHttpClient {
   }
 
   @Override
-  public boolean hasValidConfiguration(String serviceName) {
-    Boolean validConfig = hasValidConfiguration.get(serviceName);
+  public boolean hasValidConfiguration(String serviceId) {
+    Boolean validConfig = hasValidConfiguration.get(serviceId);
     if (validConfig == null) {
       if (hasValidConfigurationAll != null) {
         return hasValidConfigurationAll.booleanValue();
@@ -99,11 +99,11 @@ public final class MockingCaravanHttpClient implements CaravanHttpClient {
 
   /**
    * Set valid configuration for a given service (if not set defaults to true)
-   * @param serviceName Service name
+   * @param serviceId Service ID
    * @param valid Configuration valid status
    */
-  public void setValidConfiguration(String serviceName, boolean valid) {
-    hasValidConfiguration.put(serviceName, valid);
+  public void setValidConfiguration(String serviceId, boolean valid) {
+    hasValidConfiguration.put(serviceId, valid);
   }
 
   /**

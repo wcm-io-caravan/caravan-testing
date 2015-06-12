@@ -77,7 +77,7 @@ public class MockingCaravanHttpClientTest {
 
   @Test
   public void testMockServiceRequest() {
-    underTest.mockRequest().serviceName("service1").urlStartsWith("/url1").response(PAYLOAD);
+    underTest.mockRequest().serviceId("service1").urlStartsWith("/url1").response(PAYLOAD);
     assertResponse("service1", "/url1", PAYLOAD);
     assertResponse("service1", "/url1/sub1", PAYLOAD);
     assertResponse("service1", "/url2", null);
@@ -86,7 +86,7 @@ public class MockingCaravanHttpClientTest {
 
   @Test
   public void testMockServiceAnyRequest() {
-    underTest.mockRequest().serviceName("service1").response(PAYLOAD);
+    underTest.mockRequest().serviceId("service1").response(PAYLOAD);
     assertResponse("service1", "/url1", PAYLOAD);
     assertResponse("service1", "/url1/sub1", PAYLOAD);
     assertResponse("service1", "/url2", PAYLOAD);
@@ -138,8 +138,8 @@ public class MockingCaravanHttpClientTest {
     assertResponse("service2", "/url1", null);
   }
 
-  private void assertResponse(String serviceName, String url, String payload) {
-    CaravanHttpRequest request = new CaravanHttpRequestBuilder(serviceName).append(url).build();
+  private void assertResponse(String serviceId, String url, String payload) {
+    CaravanHttpRequest request = new CaravanHttpRequestBuilder(serviceId).append(url).build();
     CaravanHttpResponse response = underTest.execute(request).toBlocking().single();
     if (payload == null) {
       assertEquals(HttpStatus.SC_NOT_FOUND, response.status());

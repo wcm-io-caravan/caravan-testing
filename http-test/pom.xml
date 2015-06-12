@@ -35,7 +35,7 @@
   <packaging>bundle</packaging>
 
   <name>Testing Resilient HTTP</name>
-  <description>An Resilient HTTP testing module.</description>
+  <description>Resilient HTTP testing support.</description>
 
   <scm>
     <connection>scm:git:https://github.com/wcm-io/wcm-io-caravan.git</connection>
@@ -50,7 +50,7 @@
     <dependency>
       <groupId>io.wcm.caravan</groupId>
       <artifactId>io.wcm.caravan.io.http</artifactId>
-      <version>0.5.0</version>
+      <version>0.5.1-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
 

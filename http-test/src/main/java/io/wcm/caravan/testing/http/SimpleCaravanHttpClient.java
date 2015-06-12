@@ -64,7 +64,7 @@ public final class SimpleCaravanHttpClient implements CaravanHttpClient {
   }
 
   @Override
-  public boolean hasValidConfiguration(String serviceName) {
+  public boolean hasValidConfiguration(String serviceId) {
     return true;
   }
 

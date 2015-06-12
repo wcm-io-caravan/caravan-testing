@@ -35,7 +35,7 @@
   <packaging>bundle</packaging>
 
   <name>Testing JSON</name>
-  <description>A JSON testing module.</description>
+  <description>JSON testing support.</description>
 
   <scm>
     <connection>scm:git:https://github.com/wcm-io/wcm-io-caravan.git</connection>

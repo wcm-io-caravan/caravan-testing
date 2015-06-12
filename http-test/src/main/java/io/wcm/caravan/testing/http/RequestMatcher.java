@@ -41,17 +41,27 @@ import com.google.common.base.Charsets;
 @ProviderType
 public final class RequestMatcher {
 
-  private String serviceName;
+  private String serviceId;
   private Matcher<String> urlMatcher;
   private CaravanHttpResponse response;
 
   /**
-   * @param value Service name
+   * @param value Service ID
    * @return this
    */
-  public RequestMatcher serviceName(String value) {
-    this.serviceName = value;
+  public RequestMatcher serviceId(String value) {
+    this.serviceId = value;
     return this;
+  }
+
+  /**
+   * @param value Service ID
+   * @return this
+   * @deprecated Please use {@link #serviceId(String)}
+   */
+  @Deprecated
+  public RequestMatcher serviceName(String value) {
+    return serviceId(value);
   }
 
   /**
@@ -115,8 +125,8 @@ public final class RequestMatcher {
     this.response = payload;
   }
 
-  boolean matches(String expectedServiceName, String expectedUrl) {
-    return (this.serviceName == null || StringUtils.equals(expectedServiceName, this.serviceName))
+  boolean matches(String expectedServiceId, String expectedUrl) {
+    return (this.serviceId == null || StringUtils.equals(expectedServiceId, this.serviceId))
         && (this.urlMatcher == null || urlMatcher.matches(expectedUrl))
         && (response != null);
   }

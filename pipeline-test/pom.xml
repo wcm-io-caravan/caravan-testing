@@ -35,7 +35,7 @@
   <packaging>bundle</packaging>
 
   <name>Testing Pipeline</name>
-  <description>A Pipeline testing module.</description>
+  <description>Pipeline testing support.</description>
 
   <scm>
     <connection>scm:git:https://github.com/wcm-io/wcm-io-caravan.git</connection>
@@ -50,7 +50,7 @@
     <dependency>
       <groupId>io.wcm.caravan</groupId>
       <artifactId>io.wcm.caravan.testing.http</artifactId>
-      <version>0.5.0</version>
+      <version>0.5.1-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -64,13 +64,13 @@
     <dependency>
       <groupId>io.wcm.caravan</groupId>
       <artifactId>io.wcm.caravan.pipeline.api</artifactId>
-      <version>0.5.0</version>
+      <version>0.5.1-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>io.wcm.caravan</groupId>
       <artifactId>io.wcm.caravan.pipeline.impl</artifactId>
-      <version>0.5.0</version>
+      <version>0.5.1-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
 
