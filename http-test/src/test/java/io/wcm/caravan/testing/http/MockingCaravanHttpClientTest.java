@@ -155,4 +155,17 @@ public class MockingCaravanHttpClientTest {
     }
   }
 
+  @Test
+  public void getMatchingCount_shouldReturnTheNumberOfInvocationsPerMatcher() {
+
+    underTest.mockRequest().url("/resource").response("OK");
+    assertEquals(0, underTest.getMatchingCount("service1", "/resource"));
+    CaravanHttpRequest request = new CaravanHttpRequestBuilder("service1").append("/resource").build();
+    underTest.execute(request);
+    assertEquals(1, underTest.getMatchingCount("service1", "/resource"));
+    underTest.execute(request);
+    assertEquals(2, underTest.getMatchingCount("service1", "/resource"));
+
+  }
+
 }

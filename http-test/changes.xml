@@ -27,6 +27,9 @@
       <action type="update" dev="sseifert">
         Deprecate "serviceName" and use "serviceId" instead.
       </action>
+      <action type="add" dev="cnagel">
+        Adds matching counter method to MockingCaravanHttpClient to verify invocations
+      </action>
     </release>
 
     <release version="0.5.0" date="2015-06-11">

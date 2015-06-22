@@ -139,4 +139,22 @@ public final class MockingCaravanHttpClient implements CaravanHttpClient {
     return this.requestMatchers;
   }
 
+  /**
+   * Returns the number of invocations for the first {@link RequestMatcher} fitting the given {@code serviceId} and
+   * {@code url}.
+   * @param serviceId Logical service name
+   * @param url (Partial) URL
+   * @return Number of invocations
+   */
+  public int getMatchingCount(String serviceId, String url) {
+
+    for (RequestMatcher matcher : requestMatchers) {
+      if (matcher.matches(serviceId, url)) {
+        return matchingCounter.get(matcher).get();
+      }
+    }
+    return 0;
+
+  }
+
 }
