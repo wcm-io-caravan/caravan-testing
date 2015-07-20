@@ -36,8 +36,10 @@
   <packaging>pom</packaging>
 
   <name>Caravan Testing Root</name>
+  <description>Testing support for Caravan-based Micro Services.</description>
 
   <modules>
+    <module>parent</module>
     <module>json-test</module>
     <module>http-test</module>
     <module>pipeline-test</module>

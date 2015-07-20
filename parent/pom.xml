@@ -3,7 +3,7 @@
   #%L
   wcm.io
   %%
-  Copyright (C) 2014 wcm.io
+  Copyright (C) 2015 wcm.io
   %%
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -24,18 +24,18 @@
 
   <parent>
     <groupId>io.wcm.caravan</groupId>
-    <artifactId>io.wcm.caravan.testing.parent</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
-    <relativePath>../parent/pom.xml</relativePath>
+    <artifactId>io.wcm.caravan.parent_toplevel</artifactId>
+    <version>0.5.5-SNAPSHOT</version>
+    <relativePath/>
   </parent>
 
   <groupId>io.wcm.caravan</groupId>
-  <artifactId>io.wcm.caravan.testing.json</artifactId>
-  <version>0.5.1-SNAPSHOT</version>
-  <packaging>bundle</packaging>
+  <artifactId>io.wcm.caravan.testing.parent</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
 
-  <name>JSON Testing Support</name>
-  <description>Setting up JSON parsing and test fixtures for testing.</description>
+  <name>Testing</name>
+  <description>Testing support for Caravan-based Micro Services.</description>
 
   <scm>
     <connection>scm:git:https://github.com/wcm-io-caravan/caravan-testing.git</connection>
@@ -45,39 +45,8 @@
   </scm>
 
   <properties>
-    <site.url.module.prefix>testing/json</site.url.module.prefix>
+    <site.url.module.prefix>testing</site.url.module.prefix>
   </properties>
-
-  <dependencies>
-
-    <!-- WCM jsonpath -->
-    <dependency>
-      <groupId>io.wcm.caravan</groupId>
-      <artifactId>io.wcm.caravan.commons.jsonpath</artifactId>
-      <version>0.5.0</version>
-      <scope>compile</scope>
-    </dependency>
-
-    <!-- JSON -->
-    <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-databind</artifactId>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>net.javacrumbs.json-unit</groupId>
-      <artifactId>json-unit</artifactId>
-      <scope>compile</scope>
-    </dependency>
-
-    <!-- Mocking & Junit -->
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <scope>compile</scope>
-    </dependency>
-
-  </dependencies>
 
   <distributionManagement>
     <site>
