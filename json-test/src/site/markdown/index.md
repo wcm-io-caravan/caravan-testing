@@ -2,16 +2,8 @@
 
 Setting up JSON parsing and test fixtures for testing.
 
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.wcm.caravan/io.wcm.caravan.testing.json/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.wcm.caravan/io.wcm.caravan.testing.json)
 
-### Maven Dependency
-
-```xml
-<dependency>
-  <groupId>io.wcm.caravan</groupId>
-  <artifactId>io.wcm.caravan.testing.json</artifactId>
-  <version>0.5.0</version>
-</dependency>
-```
 
 ### Documentation
 

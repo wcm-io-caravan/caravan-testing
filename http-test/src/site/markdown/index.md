@@ -2,16 +2,8 @@
 
 Allows to test and mock resilient HTTP communications.
 
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.wcm.caravan/io.wcm.caravan.testing.http/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.wcm.caravan/io.wcm.caravan.testing.http)
 
-### Maven Dependency
-
-```xml
-<dependency>
-  <groupId>io.wcm.caravan</groupId>
-  <artifactId>io.wcm.caravan.testing.http</artifactId>
-  <version>0.6.0</version>
-</dependency>
-```
 
 ### Documentation
 

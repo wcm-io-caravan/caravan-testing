@@ -2,16 +2,8 @@
 
 JUnit rule for mocking Pipeline and OSGi context.
 
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.wcm.caravan/io.wcm.caravan.testing.pipeline/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.wcm.caravan/io.wcm.caravan.testing.pipeline)
 
-### Maven Dependency
-
-```xml
-<dependency>
-  <groupId>io.wcm.caravan</groupId>
-  <artifactId>io.wcm.caravan.testing.pipeline</artifactId>
-  <version>0.5.2</version>
-</dependency>
-```
 
 ### Documentation
 
