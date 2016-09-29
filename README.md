@@ -1,6 +1,7 @@
 <img src="http://wcm.io/images/favicon-16@2x.png"/> wcm.io Caravan Testing
 ======
 [![Build Status](https://travis-ci.org/wcm-io-caravan/caravan-testing.png?branch=develop)](https://travis-ci.org/wcm-io-caravan/caravan-testing)
+[![Code Coverage](https://codecov.io/gh/wcm-io-caravan/caravan-testing/branch/develop/graph/badge.svg)](https://codecov.io/gh/wcm-io-caravan/caravan-testing)
 
 wcm.io Caravan - JSON Data Pipelining Infrastructure
 
