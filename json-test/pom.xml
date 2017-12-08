@@ -36,6 +36,7 @@
 
   <name>JSON Testing Support</name>
   <description>Setting up JSON parsing and test fixtures for testing.</description>
+  <url>${site.url}/${site.url.module.prefix}/</url>
 
   <scm>
     <connection>scm:git:https://github.com/wcm-io-caravan/caravan-testing.git</connection>

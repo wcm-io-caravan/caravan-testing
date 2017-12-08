@@ -36,6 +36,7 @@
 
   <name>Pipeline Testing Support</name>
   <description>JUnit rule for mocking Pipeline and OSGi context.</description>
+  <url>${site.url}/${site.url.module.prefix}/</url>
 
   <scm>
     <connection>scm:git:https://github.com/wcm-io-caravan/caravan-testing.git</connection>

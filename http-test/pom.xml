@@ -36,6 +36,7 @@
 
   <name>Resilient HTTP Testing Support</name>
   <description>Allows to test and mock resilient HTTP communications.</description>
+  <url>${site.url}/${site.url.module.prefix}/</url>
 
   <scm>
     <connection>scm:git:https://github.com/wcm-io-caravan/caravan-testing.git</connection>
