@@ -1,4 +1,4 @@
-<img src="http://wcm.io/images/favicon-16@2x.png"/> wcm.io Caravan Testing
+<img src="https://wcm.io/images/favicon-16@2x.png"/> wcm.io Caravan Testing
 ======
 [![Build Status](https://travis-ci.org/wcm-io-caravan/caravan-testing.png?branch=develop)](https://travis-ci.org/wcm-io-caravan/caravan-testing)
 [![Code Coverage](https://codecov.io/gh/wcm-io-caravan/caravan-testing/branch/develop/graph/badge.svg)](https://codecov.io/gh/wcm-io-caravan/caravan-testing)
@@ -9,7 +9,7 @@ wcm.io Caravan - JSON Data Pipelining Infrastructure
 
 Testing support for Caravan-based Micro Services.
 
-Documentation: http://caravan.wcm.io/testing/<br/>
+Documentation: https://caravan.wcm.io/testing/<br/>
 Issues: https://wcm-io.atlassian.net/<br/>
 Wiki: https://wcm-io.atlassian.net/wiki/<br/>
 Continuous Integration: https://travis-ci.org/wcm-io-caravan/caravan-testing/
@@ -17,7 +17,7 @@ Continuous Integration: https://travis-ci.org/wcm-io-caravan/caravan-testing/
 
 ## Build from sources
 
-If you want to build wcm.io from sources make sure you have configured all [Maven Repositories](http://caravan.wcm.io/maven.html) in your settings.xml.
+If you want to build wcm.io from sources make sure you have configured all [Maven Repositories](https://caravan.wcm.io/maven.html) in your settings.xml.
 
 See [Travis Maven settings.xml](https://github.com/wcm-io-caravan/caravan-testing/blob/master/.travis.maven-settings.xml) for an example with a full configuration.
 
