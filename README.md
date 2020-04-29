@@ -12,7 +12,8 @@ Testing support for Caravan-based Micro Services.
 Documentation: https://caravan.wcm.io/testing/<br/>
 Issues: https://wcm-io.atlassian.net/<br/>
 Wiki: https://wcm-io.atlassian.net/wiki/<br/>
-Continuous Integration: https://travis-ci.org/wcm-io-caravan/caravan-testing/
+Continuous Integration: https://travis-ci.org/wcm-io-caravan/caravan-testing/<br/>
+Commercial support: https://wcm.io/commercial-support.html
 
 
 ## Build from sources
