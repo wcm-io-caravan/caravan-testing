@@ -104,7 +104,7 @@ public final class JsonFixture {
 
   private DocumentContext cloneContext() {
     // TODO: Check for better cloning possibility
-    return JsonPath.parse(toJsonNode());
+    return JsonPath.parse(toJsonNode().toString());
   }
 
   @Override
