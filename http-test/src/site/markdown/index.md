@@ -2,7 +2,7 @@
 
 Allows to test and mock resilient HTTP communications.
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.wcm.caravan/io.wcm.caravan.testing.http/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.wcm.caravan/io.wcm.caravan.testing.http)
+[![Maven Central](https://img.shields.io/maven-central/v/io.wcm.caravan/io.wcm.caravan.testing.http)](https://repo1.maven.org/maven2/io/wcm/caravan/io.wcm.caravan.testing.http/)
 
 
 ### Documentation

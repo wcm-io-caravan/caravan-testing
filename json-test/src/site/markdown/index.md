@@ -2,7 +2,7 @@
 
 Setting up JSON parsing and test fixtures for testing.
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.wcm.caravan/io.wcm.caravan.testing.json/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.wcm.caravan/io.wcm.caravan.testing.json)
+[![Maven Central](https://img.shields.io/maven-central/v/io.wcm.caravan/io.wcm.caravan.testing.json)](https://repo1.maven.org/maven2/io/wcm/caravan/io.wcm.caravan.testing.json/)
 
 
 ### Documentation
