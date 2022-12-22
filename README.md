@@ -10,7 +10,7 @@ wcm.io Caravan - JSON Data Pipelining Infrastructure
 Testing support for Caravan-based Micro Services.
 
 Documentation: https://caravan.wcm.io/testing/<br/>
-Issues: https://wcm-io.atlassian.net/<br/>
+Issues: https://github.com/wcm-io-caravan/caravan-testing/issues<br/>
 Wiki: https://wcm-io.atlassian.net/wiki/<br/>
 Continuous Integration: https://github.com/wcm-io-caravan/caravan-testing/actions<br/>
 Commercial support: https://wcm.io/commercial-support.html
