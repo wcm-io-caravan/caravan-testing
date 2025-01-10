@@ -12,4 +12,4 @@ Setting up JSON parsing and test fixtures for testing.
 
 
 [apidocs]: apidocs/
-[changelog]: changes-report.html
+[changelog]: changes.html

@@ -12,4 +12,4 @@ Allows to test and mock resilient HTTP communications.
 
 
 [apidocs]: apidocs/
-[changelog]: changes-report.html
+[changelog]: changes.html

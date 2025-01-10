@@ -12,4 +12,4 @@ JUnit rule for mocking Pipeline and OSGi context.
 
 
 [apidocs]: apidocs/
-[changelog]: changes-report.html
+[changelog]: changes.html
